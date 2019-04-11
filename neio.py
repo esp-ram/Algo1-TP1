@@ -1,25 +1,3 @@
-"""
-from random import randint
-
-lis = ["hola", "como", "estas"]
-
-n = randint(0,3)
-
-l = list("orwell")
-
-print (n)
-print(lis[n])
-print(l)
-
-for i in l:
-    if 
-
-if "r" in l :
-    print("C")
-else:
-    print("N")
-"""
-
 from random import randint
 from todasvidas import *
 
