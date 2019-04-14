@@ -151,4 +151,3 @@ elif jugadores == "m":
     nombremulti1 = input("Ingrese el nombre del jugador 1 : ")
     nombremulti2 = input("Ingrese el nombre del jugador 2 : ")
     multiplayer()
-        
