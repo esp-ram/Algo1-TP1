@@ -60,7 +60,8 @@ def juego(adivinar,nombre):
         palabraguia = palabraguia + "_"
     letrausuario = input("ingrese letra : ")
     correctas = 0   # N° de letras correctas
-    yaingresadas = ""
+    print(adivinar) #TEST -BORRAR-
+    yaingresadas = []
     while vidas != 0 and correctas != len(adivinar) :
         if letrausuario in yaingresadas:
             """identifica si la letra ingresada ya fue ingresada anteriormente""" 
@@ -70,7 +71,7 @@ def juego(adivinar,nombre):
             letrausuario = input("ingrese letra : ")
         elif letrausuario in adivinar :
             """identifica si la letra ingresada esta en la palabra a adivinar"""
-            yaingresadas = yaingresadas + letrausuario +", "
+            yaingresadas.append(letrausuario)
             palabraguia = MuestraLetra(adivinar,palabraguia,letrausuario)
             print("Letra Correcta!")
             print(GraficaHombre(vidas))
@@ -83,7 +84,7 @@ def juego(adivinar,nombre):
         else:
             """si la letra ingresada no esta en la palabra a divinar ni fue ingresada anteriormente"""
             vidas = vidas - 1
-            yaingresadas = yaingresadas + letrausuario + ", "
+            yaingresadas.append(letrausuario)
             print("Letra Incorrecta")
             print(GraficaHombre(vidas))
             print(palabraguia)
@@ -134,19 +135,20 @@ def multiplayer():
 
 
 #programa principal
-main():
-    """programa principal. pide al usuario el modo de juego y sus nombres"""
-    print("Bienvenido")
-    print("Ingrese un modo de juego")
-    print("1 jugador => s ")
-    print("2 jugadores => m")
-    jugadores = input("Ingrese una opcion ").lower()
-    while jugadores != "s" and jugadores != "m":
-        jugadores = input("Ingrese nuevamente una opcion valida(s o m) : ")
-    if jugadores == "s":
-        nombresingle = input("Ingrese su nombre : ")
-        singleplayer()
-    elif jugadores == "m":
-        nombremulti1 = input("Ingrese el nombre del jugador 1 : ")
-        nombremulti2 = input("Ingrese el nombre del jugador 2 : ")
-        multiplayer()
+
+"""programa principal. pide al usuario el modo de juego y sus nombres"""
+print("Bienvenido")
+print("Ingrese un modo de juego")
+print("1 jugador => s ")
+print("2 jugadores => m")
+jugadores = input("Ingrese una opcion ").lower()
+while jugadores != "s" and jugadores != "m":
+    jugadores = input("Ingrese nuevamente una opcion valida(s o m) : ")
+if jugadores == "s":
+    nombresingle = input("Ingrese su nombre : ")
+    singleplayer()
+elif jugadores == "m":
+    nombremulti1 = input("Ingrese el nombre del jugador 1 : ")
+    nombremulti2 = input("Ingrese el nombre del jugador 2 : ")
+    multiplayer()
+        
