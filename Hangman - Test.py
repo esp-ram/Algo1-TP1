@@ -1,7 +1,7 @@
 from random import randint
 
 
-def GraficaHombre(oportunidades):
+def GraficaMan(oportunidades):
     """Devuelve los dibujos del ahorcado dependiendo de la cantidad de vidas restantes
     oportunidades: oportunidades restantes
     """
@@ -23,7 +23,7 @@ def GraficaHombre(oportunidades):
 
 def MuestraLetra(original,incompleta,letranueva):
     """devuelve la palabra que contiene las letras acertadas y guiones donde faltan letras
-    original: palabra a divinar
+    original: palabra a adivinar
     incompleta: palabra con letras acertadas y guiones(a ser reemplazada por la que devuelva esta funcion)
     letranueva: letra que ingreso el usuario
     """
@@ -48,90 +48,94 @@ def CuentaAciertos(incompleta):
     return aciertos
 
 
-def juego(adivinar,nombre):
+def Juego(adivinar,nombre):
     """juego principal.
     adivinar: palabra a adivinar, elegida por el usuario o de la lista 
     nombre: nombre del jugador
     """
     vidas = 6
-    print(nombre,"la palabra tiene",len(adivinar),"letras")
+    print(nombre,"la palabra tiene",len(adivinar),"letras.")
     palabraguia = ""
     for i in adivinar:
         palabraguia = palabraguia + "_"
-    letrausuario = input("ingrese letra : ")
+    letrausuario = input("Ingrese una letra : ")
     correctas = 0   # N° de letras correctas
     print(adivinar) #TEST -BORRAR-
     yaingresadas = []
     while vidas != 0 and correctas != len(adivinar) :
-        if letrausuario in yaingresadas:
+        if len(letrausuario) != 1:
+            letrausuario = input("Ingrese UNA letra : ")
+        elif letrausuario.isalpha() == False :
+            letrausuario = input("Ingrese una LETRA : ")
+        elif letrausuario in yaingresadas:
             """identifica si la letra ingresada ya fue ingresada anteriormente""" 
-            print("letra ya ingresada")
-            print("letras ya ingresadas :",yaingresadas)
+            print("Esa letra ya fue ingrasada letra ya ingresada")
+            print("Las letras que ya ingresaste son :",yaingresadas)
             print("________________________________________________") #separador
             letrausuario = input("ingrese letra : ")
         elif letrausuario in adivinar :
             """identifica si la letra ingresada esta en la palabra a adivinar"""
             yaingresadas.append(letrausuario)
             palabraguia = MuestraLetra(adivinar,palabraguia,letrausuario)
-            print("Letra Correcta!")
-            print(GraficaHombre(vidas))
+            print("Letra Correcta!!!")
+            print(GraficaMan(vidas))
             print(palabraguia)
-            print("letras ya ingresadas :",yaingresadas)
+            print("Estas letras ya fueron ingresadas :",yaingresadas)
             print("________________________________________________") #separador
             correctas = CuentaAciertos(palabraguia)
             if correctas != len(adivinar):
-                letrausuario = input("ingrese letra : ")
+                letrausuario = input("Ingrese una letra : ")
         else:
             """si la letra ingresada no esta en la palabra a divinar ni fue ingresada anteriormente"""
             vidas = vidas - 1
             yaingresadas.append(letrausuario)
-            print("Letra Incorrecta")
-            print(GraficaHombre(vidas))
+            print("Esa letra es incorrecta")
+            print(GraficaMan(vidas))
             print(palabraguia)
-            print("letras ya ingresadas :",yaingresadas)
+            print("Las letras ya ingresadas son :",yaingresadas)
             print("________________________________________________") #separador
             if vidas != 0 :
-                letrausuario = input("ingrese letra : ")
+                letrausuario = input("Ingrese una letra : ")
     if vidas == 0 :
         """si el jugador agoto los intentos"""
-        print("Oh no! Perdiste")
-        print("la palabra era",adivinar)
+        print("Oh no!",nombre, "Perdiste")
+        print("La palabra era",adivinar)
     else:
         """si el jugador gano el juego"""
         print("Felicidades",nombre, "ganaste !!!")
         
-def replay(modo):
+def Replay(modo):
     """pregunta al usuario si desea jugar otra ves"""
-    repetir = input("Desea jugar nuevamente ? (si/no) ").lower()
+    repetir = input("Desea jugar nuevamente? (si/no) :").lower()
     while repetir != "si" and repetir != "no":
-        repetir = input("desea jugar nuevamente? (si/no) ").lower()
+        repetir = input("Desea jugar nuevamente? (si/no) :").lower()
     if repetir == "si" and modo == 1 :
-        singleplayer()
+        Singleplayer()
     elif repetir == "si" and modo == 2 :
-        multiplayer()
+        Multiplayer()
     elif repetir == "no":
         print("Gracias por jugar")
         
 
-def singleplayer():
+def Singleplayer():
     """modulo de juego para un solo jugador"""
     listapalabras = ["cuaderno","libro","calculadora","reloj","lapicera","botella","auto","lampara","mesa","celular","teclado","pantalla","pared","perro","elefante","aguila","leon","jirafa","ballena","tigre"]
     guess = listapalabras[randint(0,19)] #palabra random
-    juego(guess,nombresingle)
-    replay(1)
+    Juego(guess,nombresingle)
+    Replay(1)
 
 
-def multiplayer():
+def Multiplayer():
     """modulo de juego para dos jugadores"""
     adivinarj1 = input("{} ingresa una palabra para que {} adivine : ".format(nombremulti2,nombremulti1))
     while not adivinarj1.isalpha() :
         adivinarj1 = input("{} ingresa una palabra para que {} adivine : ".format(nombremulti2,nombremulti1))
-    juego(adivinarj1,nombremulti1)
+    Juego(adivinarj1,nombremulti1)
     adivinarj2 = input("{} ingresa una palabra para que {} adivine : ".format(nombremulti1,nombremulti2))
     while not adivinarj2.isalpha() :
         adivinarj2 = input("{} ingresa una palabra para que {} adivine : ".format(nombremulit1,nombremulti2))
-    juego(adivinarj2,nombremulti2)
-    replay(2)
+    Juego(adivinarj2,nombremulti2)
+    Replay(2)
 
 
 #programa principal
@@ -141,13 +145,13 @@ print("Bienvenido")
 print("Ingrese un modo de juego")
 print("1 jugador => s ")
 print("2 jugadores => m")
-jugadores = input("Ingrese una opcion ").lower()
+jugadores = input("Ingrese una opcion : ").lower()
 while jugadores != "s" and jugadores != "m":
-    jugadores = input("Ingrese nuevamente una opcion valida(s o m) : ")
+    jugadores = input("Ingrese nuevamente una opcion valida(s o m) : ").lower()
 if jugadores == "s":
     nombresingle = input("Ingrese su nombre : ")
-    singleplayer()
+    Singleplayer()
 elif jugadores == "m":
     nombremulti1 = input("Ingrese el nombre del jugador 1 : ")
     nombremulti2 = input("Ingrese el nombre del jugador 2 : ")
-    multiplayer()
+    Multiplayer()
