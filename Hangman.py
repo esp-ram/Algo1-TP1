@@ -1,8 +1,6 @@
 from random import randint
 import os
 
-nombresingle = ""
-
 def clear():
     """ "Limpia" la consola
     """
@@ -67,7 +65,6 @@ def Juego(adivinar,nombre):
         palabraguia = palabraguia + "_"
     letrausuario = input("Ingrese una letra : ").lower()
     correctas = 0   # N° de letras correctas
-    print(adivinar) #TEST -BORRAR-
     yaingresadas = []
     while vidas != 0 and correctas != len(adivinar) :
         if len(letrausuario) != 1:
@@ -79,7 +76,7 @@ def Juego(adivinar,nombre):
             print("Esa letra ya fue ingrasada letra ya ingresada")
             print("Las letras que ya ingresaste son :",yaingresadas)
             print("________________________________________________") #separador
-            letrausuario = input("ingrese letra : ")
+            letrausuario = input("ingrese letra : ").lower()
         elif letrausuario in adivinar :
             """identifica si la letra ingresada esta en la palabra a adivinar"""
             yaingresadas.append(letrausuario)
@@ -94,7 +91,7 @@ def Juego(adivinar,nombre):
                 letrausuario = input("Ingrese una letra : ").lower()
         else:
             """si la letra ingresada no esta en la palabra a divinar ni fue ingresada anteriormente"""
-            vidas = vidas - 1
+            vidas -= 1
             yaingresadas.append(letrausuario)
             print("Esa letra es incorrecta")
             print(GraficaMan(vidas))
@@ -117,14 +114,14 @@ def Replay(modo):
     while repetir != "si" and repetir != "no":
         repetir = input("Desea jugar nuevamente? (si/no) :").lower()
     if repetir == "si" and modo == 1 :
-        Singleplayer(nombresjugadores[0])
+        Singleplayer()
     elif repetir == "si" and modo == 2 :
         Multiplayer()
     elif repetir == "no":
         print("Gracias por jugar")
         
 
-def Singleplayer(nombresingle):
+def Singleplayer():
     """modulo de juego para un solo jugador"""
     listapalabras = ["cuaderno","libro","calculadora","reloj","lapicera","botella","auto","lampara","mesa","celular","teclado","pantalla","pared","perro","elefante","aguila","leon","jirafa","ballena","tigre"]
     guess = listapalabras[randint(0,19)] #palabra random
@@ -148,22 +145,18 @@ def Multiplayer():
 
 
 #programa principal
-#nombresingle = ""
+
 """programa principal. pide al usuario el modo de juego y sus nombres"""
-
-
 print("Bienvenido")
 print("Ingrese un modo de juego")
 print("1 jugador => s ")
 print("2 jugadores => m")
 jugadores = input("Ingrese una opcion : ").lower()
-nombresjugadores = []
 while jugadores != "s" and jugadores != "m":
     jugadores = input("Ingrese nuevamente una opcion valida(s o m) : ").lower()
 if jugadores == "s":
     nombresingle = input("Ingrese su nombre : ")
-    nombresjugadores.append(nombresingle)
-    Singleplayer(nombresjugadores[0])
+    Singleplayer()
 elif jugadores == "m":
     nombremulti1 = input("Ingrese el nombre del jugador 1 : ")
     nombremulti2 = input("Ingrese el nombre del jugador 2 : ")
