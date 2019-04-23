@@ -23,7 +23,7 @@ def GraficaMan(oportunidades):
     elif oportunidades == 1 :
         return(" O\n ")
     elif oportunidades == 0 :
-        return("0 vidas")
+        return("Sin vidas restantes")
         
 
 def MuestraLetra(original,incompleta,letranueva):
@@ -68,15 +68,19 @@ def Juego(adivinar,nombre):
     yaingresadas = []
     while vidas != 0 and correctas != len(adivinar) :
         if len(letrausuario) != 1:
+            """ identifica si el usuario ingresa mas de una letra"""
+            print("Solo se acepta una letra")
             letrausuario = input("Ingrese UNA letra : ").lower()
         elif letrausuario.isalpha() == False :
+            """ identifica si el usuario entra un caracter que no es una letra"""
+            print("Solo se permite el ingreso de letras")
             letrausuario = input("Ingrese una LETRA : ").lower()
         elif letrausuario in yaingresadas:
             """identifica si la letra ingresada ya fue ingresada anteriormente""" 
             print("Esa letra ya fue ingrasada letra ya ingresada")
             print("Las letras que ya ingresaste son :",yaingresadas)
             print("________________________________________________") #separador
-            letrausuario = input("ingrese letra : ").lower()
+            letrausuario = input("Ingrese una letra : ").lower()
         elif letrausuario in adivinar :
             """identifica si la letra ingresada esta en la palabra a adivinar"""
             yaingresadas.append(letrausuario)
@@ -123,7 +127,7 @@ def Replay(modo):
 
 def Singleplayer():
     """modulo de juego para un solo jugador"""
-    listapalabras = ["cuaderno","libro","calculadora","reloj","lapicera","botella","auto","lampara","mesa","celular","teclado","pantalla","pared","perro","elefante","aguila","leon","jirafa","ballena","tigre"]
+    listapalabras = ["caramelo","libro","calculadora","reloj","lapicera","botella","auto","lampara","mesa","celular","teclado","pantalla","pared","perro","elefante","aguila","leon","jirafa","ballena","tigre"]
     guess = listapalabras[randint(0,19)] #palabra random
     Juego(guess,nombresingle)
     Replay(1)
